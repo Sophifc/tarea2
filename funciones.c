@@ -336,7 +336,7 @@ void mostrarProductos(HashMap* mapaProductos){
 
 
 
-void crearCarrito(char auxCarrito,List* listaCarritos){
+void crearCarrito(char* auxCarrito,List* listaCarritos){
 
     Carrito* carrito=(Carrito*)malloc(sizeof(Carrito));
     strcpy(carrito->nombre,auxCarrito);
@@ -419,6 +419,32 @@ void agregarCarrito(List* listaCarritos, HashMap* mapaProductos){
 
 
     
+
+
+}
+
+
+//FUNCION QUE EXPORTA LOS PRODUCTOS EN UN ARCHIVO CSV
+void exportarProductos(HashMap* mapaProductos){
+
+    char archivo[100];
+    printf("Ingrese el nombre con el cual exportar el archivo, agrege .csv al final de este\n");
+    fgets(archivo,100, stdin);
+
+    FILE *datos;
+    char aux[1024];
+    datos = fopen(archivo, "w");
+    Pair* productoPair = firstMap(mapaProductos);
+
+    while (productoPair != NULL) {
+        
+        Producto* auxProducto = productoPair->value;
+        snprintf(aux, sizeof(aux), "%s, %s, %s, %d, %d\n", auxProducto->nombre, auxProducto->marca, auxProducto->tipo, auxProducto->stock, auxProducto->precio);
+        fputs(aux, datos);
+        productoPair = nextMap(mapaProductos);
+    }
+    printf("EXPORTACION EXITOSA!\n");
+    fclose(datos);
 
 
 }

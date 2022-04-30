@@ -48,6 +48,7 @@ void initMenu(){
            case 2:
         
            //Función que exporta los productos en un archivo csv
+           exportarProductos(mapaProductos);
         
            break;
 
