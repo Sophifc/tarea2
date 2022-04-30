@@ -15,6 +15,12 @@ struct Producto{
 };
 
 
+struct  Carrito{
+    nombre[100];
+    List* productos;
+};
+
+
 
 //Funcion para leer el k-esimo elemento de un string (separado por comas)
 char* get_csv_field (char * tmp, int k){
@@ -95,11 +101,15 @@ void importarProductos(HashMap* mapaMarcas,HashMap* mapaProductos,HashMap* mapaT
 //FUNCION QUE AGREGA UN PRODUCTO AL MAPA DE MARCAS
 void agregarMapaMarcas(HashMap* mapaMarcas,Producto* auxProducto){
 
+    printf("INGRESO A AGREGAR MARCAS\n");
+
     //se crea la lista de la marca
     List* listaMarca=createList();
     //agregar producto a la lista
     pushBack(listaMarca,auxProducto);
+    printf("AGREGADO FINAL LISTA MARCAS\n");
     //insertar lista al mapa de marcas
+    printf("INSERTANDO\n");
     insertMap(mapaMarcas,auxProducto->marca,listaMarca);
 
 }
@@ -108,11 +118,14 @@ void agregarMapaMarcas(HashMap* mapaMarcas,Producto* auxProducto){
 //FUNCION QUE AGREGA UN PRODUCTO AL MAPA DE TIPOS
 void agregarMapaTipos(HashMap* mapaTipos,Producto* auxProducto){
 
+    printf("INGRESO A AGREGAR TIPOS\n");
     //se crea la lista del tipo
     List* listaTipo=createList();
     //agregar producto a la lista
     pushBack(listaTipo,auxProducto);
+    printf("AGREGADO FINAL LISTA TIPOS\n");
     //insertar lista al mapa de tipos
+    printf("INSERTANDO\n");
     insertMap(mapaTipos,auxProducto->tipo,listaTipo);
 
 }
@@ -133,32 +146,40 @@ void agregarProducto(HashMap* mapaMarcas,HashMap* mapaProductos,HashMap* mapaTip
         auxProducto->precio=atoi(precio);
 
         //insertar el producto en el mapa de productos
+        //printf("INSERTANDO EN MAPA PRODUCTOS\n");
         insertMap(mapaProductos,nombre,auxProducto);
         
         //agregar el producto al mapa de marcas y mapa de tipos
+        //printf("AGREGAR A MAPA MARCAS\n");
         agregarMapaMarcas(mapaMarcas,auxProducto);
+
+        //printf("AGREGAR A MAPA TIPOS\n");
         agregarMapaTipos(mapaTipos,auxProducto);
     }
     else{//el producto existe
 
         //incrementa el stock en el mapa de productos
+
+        printf("AUMENTANDO STOCK\n");
         auxProducto=aux->value;
         auxProducto->stock++;
 
         //incrementa stock en mapa de marcas
         aux=searchMap(mapaMarcas,marca);
-        auxProducto=firstList(aux->value);
+        List* auxList=aux->value;
+        Producto* auxProducto=firstList(auxList);
 
         //buscar el producto en la lista de la marca
         while (auxProducto!=NULL){
             if(strcmp(auxProducto->nombre,nombre)==0){
 
+                printf("AUMENTANDO STOCK MARCAS\n");
                 //aumenta el stock del producto
                 auxProducto->stock=atoi(stock);
                 
             }
             else{
-                auxProducto=nextList(aux->value);
+                auxProducto=nextList(auxList);
             }
 
         }
@@ -166,17 +187,20 @@ void agregarProducto(HashMap* mapaMarcas,HashMap* mapaProductos,HashMap* mapaTip
 
         //incrementa el sotkc en mapa de tipos
         aux=searchMap(mapaTipos,tipo);
-        auxProducto=firstList(aux->value);
+        auxList=aux->value;
+        auxProducto=firstList(auxList);
         //buscar el producto en la lista del tipo
         while (auxProducto!=NULL){
             if(strcmp(auxProducto->nombre,nombre)==0){
+
+                printf("AUMENTANDO STOCK TIPOS\n");
 
                 //aumenta el stock del producto
                 auxProducto->stock=atoi(stock);
                 
             }
             else{
-                auxProducto=nextList(aux->value);
+                auxProducto=nextList(auxList);
             }
 
         }
@@ -191,7 +215,9 @@ void buscarProductoTipo(HashMap* mapaTipos){
 
     char auxTipo[100];
     printf("Ingrese el tipo de producto que desea buscar\n");
-    fgets(auxTipo,100,stdin);
+    fgets(auxTipo,100, stdin);
+    fgets(auxTipo,100, stdin);
+    strtok(auxTipo, "\n");
 
     Pair* aux=searchMap(mapaTipos,auxTipo);
 
@@ -200,7 +226,9 @@ void buscarProductoTipo(HashMap* mapaTipos){
 
     }
     else{
-        Producto* auxProducto=firstList(aux->value);
+
+        List* auxList=aux->value;
+        Producto* auxProducto=firstList(auxList);
         while(auxProducto!=NULL){
             printf("Nombre: %s -",auxProducto->nombre);
             printf("Marca: %s -",auxProducto->marca);
@@ -209,7 +237,7 @@ void buscarProductoTipo(HashMap* mapaTipos){
             printf("Precio: %d\n\n",auxProducto->precio);
 
 
-            auxProducto=nextList(aux->value);
+            auxProducto=nextList(auxList);
         }
 
     }
@@ -221,17 +249,24 @@ void buscarProductoMarca(HashMap* mapaMarcas){
 
     char auxMarca[100];
     printf("Ingrese la marca del producto que desea buscar\n");
-    fgets(auxMarca,100,stdin);
+    fgets(auxMarca,100, stdin);
+    fgets(auxMarca,100, stdin);
+    strtok(auxMarca, "\n");
 
     Pair* aux=searchMap(mapaMarcas,auxMarca);
 
     if(aux==NULL){
         printf("No se encontro ningún producto de dicha marca\n");
+        
 
     }
     else{
-        Producto* auxProducto=firstList(aux->value);
+
+        List* auxList=aux->value;
+        Producto* auxProducto=firstList(auxList);
         while(auxProducto!=NULL){
+
+
             printf("Nombre: %s -",auxProducto->nombre);
             printf("Marca: %s -",auxProducto->marca);
             printf("Tipo: %s -",auxProducto->tipo);
@@ -239,7 +274,7 @@ void buscarProductoMarca(HashMap* mapaMarcas){
             printf("Precio: %d\n\n",auxProducto->precio);
 
 
-            auxProducto=nextList(aux->value);
+            auxProducto=nextList(auxList);
         }
 
     }
@@ -252,20 +287,138 @@ void buscarProductos(HashMap* mapaProductos){
 
     char auxNombre[100];
     printf("Ingrese el nombre del producto que desea buscar\n");
-    fgets(auxNombre,100,stdin);
+    fgets(auxNombre,100, stdin);
+    fgets(auxNombre,100, stdin);
+    strtok(auxNombre, "\n");
 
     Pair* aux=searchMap(mapaProductos,auxNombre);
     if(aux==NULL){
         printf("El producto buscado no existe\n");
     }
     else{
+        
         Producto* auxProducto=aux->value;
         printf("Nombre: %s -",auxProducto->nombre);
         printf("Marca: %s -",auxProducto->marca);
         printf("Tipo: %s -",auxProducto->tipo);
         printf("Stock: %d -",auxProducto->stock);
         printf("Precio: %d\n\n",auxProducto->precio);
+        
     }
+
+
+}
+
+
+
+void mostrarProductos(HashMap* mapaProductos){
+
+    Pair* aux=firstMap(mapaProductos);
+    Producto* auxProducto;
+    int cont=1;
+
+    while (aux!=NULL){
+
+        auxProducto=aux->value;
+        printf("%d ", cont);
+        printf("Nombre: %s -",auxProducto->nombre);
+        printf("Marca: %s -",auxProducto->marca);
+        printf("Tipo: %s -",auxProducto->tipo);
+        printf("Stock: %d -",auxProducto->stock);
+        printf("Precio: %d\n\n",auxProducto->precio);
+        aux=nextMap(mapaProductos);
+
+        cont++;
+
+    }
+    
+}
+
+
+
+void crearCarrito(char auxCarrito,List* listaCarritos){
+
+    Carrito* carrito=(Carrito*)malloc(sizeof(Carrito));
+    strcpy(carrito->nombre,auxCarrito);
+    carrito->productos=createList();
+    pushBack(listaCarritos,carrito);
+
+}
+//FUNCION QUE AGREGA UN PRODUCTO A UN CARRITO
+void agregarCarrito(List* listaCarritos, HashMap* mapaProductos){
+
+    char auxCarrito[100];
+    printf("Ingrese el nombre del carrito al cual agregara el producto\n");
+    fgets(auxCarrito,100, stdin);
+
+    Carrito* aux=firstList(listaCarritos);
+
+    while(aux!=NULL){
+        if(strcmp(aux->nombre,auxCarrito)==0){
+
+            printf("Carrito encontrado\n");
+
+            //buscar el producto
+            char producto[100];
+            int cantidad;
+            printf("INGRESE EL NOMBRE DEL PRODUCTO A AGREGAR\n");
+            fgets(producto,100, stdin);
+            printf("Ingrese la cantidad que desea agregar\n");
+            scanf("%d", &cantidad);
+
+            Pair* auxPair=searchMap(mapaProductos, producto);
+
+            if(auxPair==NULL){
+                printf("Producto no encontrado\n");
+            }
+            else{
+                //agregar el producto al carrito
+                Producto* auxProducto=auxPair->value;
+
+                //descontar stock en el mapa de productos
+                auxProducto->stock=auxProducto->stock-cantidad;
+                pushBack(listaCarritos,auxPair->value);
+            }
+            
+        }
+        else{
+            aux=nextList(listaCarritos);
+        }
+    }
+
+    printf("El carrito no eixtse, se creara uno nuevo\n");
+
+    //crear el carrito e ingresarlo a la lista
+    crearCarrito(auxCarrito,listaCarritos);
+
+    //agregar el producto al carrito
+    //buscar el producto
+    char producto[100];
+    int cantidad;
+    printf("INGRESE EL NOMBRE DEL PRODUCTO A AGREGAR\n");
+    fgets(producto,100, stdin);
+    printf("Ingrese la cantidad que desea agregar\n");
+    scanf("%d", &cantidad);
+
+    Pair* auxPair=searchMap(mapaProductos, producto);
+    
+
+    if(auxPair==NULL){
+        printf("Producto no encontrado\n");
+    }
+    else{
+        //agregar el producto al carrito
+        Producto* auxProducto=auxPair->value;
+
+        //descontar stock en el mapa de productos
+        auxProducto->stock=auxProducto->stock-cantidad;
+        pushBack(listaCarritos,auxPair->value);
+    }
+
+    
+
+
+    
 
 
 }

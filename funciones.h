@@ -1,6 +1,8 @@
 #include "hashmap.h"
+#include "list.h"
 
 typedef struct Producto Producto;
+typedef struct  Carrito Carrito;
 
 char* get_csv_field (char * tmp, int k);
 void importarProductos(HashMap* mapaMarcas,HashMap* mapaProductos,HashMap* mapaTipos);
@@ -10,3 +12,6 @@ void agregarMapaTipos(HashMap* mapaTipos,Producto* auxProducto);
 void buscarProductoTipo(HashMap* mapaTipos);
 void buscarProductoMarca(HashMap* mapaMarcas);
 void buscarProductos(HashMap* mapaProductos);
+void mostrarProductos(HashMap* mapaProductos);
+void* buscarProductos(HashMap* mapaProductos);
+void crearCarrito(char auxCarrito,List* listaCarritos);

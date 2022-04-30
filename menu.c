@@ -2,14 +2,16 @@
 #include "menu.h"
 #include "hashmap.h"
 #include "funciones.h"
+#include "list.h"
 
 
 void initMenu(){
 
     HashMap *mapaMarcas=createMap(100);
     HashMap *mapaTipos=createMap(100);
-    HashMap *mapaProductos=createMap(100); //PUEDE SER UNA LISTA DE PRODUCTOS 
-    HashMap *mapaCarritos=createMap(100);
+    HashMap *mapaProductos=createMap(100); 
+    //HashMap *mapaCarritos=createMap(100);
+    List* listaCarritos=createList();
 
    int eleccion;
 
@@ -80,12 +82,14 @@ void initMenu(){
            case 7:
         
            //Función que muestra todos los productos
+           mostrarProductos(mapaProductos);
         
            break;
 
            case 8:
         
            //Función que agrega al carrito
+           agregarCarrito(listaCarritos,mapaProductos);
         
            break;
 
@@ -134,6 +138,8 @@ void menuAgregarPorducto(HashMap* mapaMarcas,HashMap* mapaProductos,HashMap* map
     fgets(precio,100,stdin);
 
     agregarProducto(mapaMarcas, mapaProductos, mapaTipos, nombre, marca, tipo, stock, precio);
+
+    printf("Producto agregado correctamente \n");
 
 
 }
