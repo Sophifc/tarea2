@@ -1,15 +1,15 @@
 #include <stdio.h>
-//#include "menu.h"
-#include "Map.h"
-//#include "funciones.h"
+#include "menu.h"
+#include "hashmap.h"
+#include "funciones.h"
 
 
 void initMenu(){
 
-    Map *mapaMarcas=createMap;
-    Map *mapaTipos=createMap;
-    Map *mapaProductos=createMap; //PUEDE SER UNA LISTA DE PRODUCTOS 
-    Map *mapaCarritos=createMap;
+    HashMap *mapaMarcas=createMap(100);
+    HashMap *mapaTipos=createMap(100);
+    HashMap *mapaProductos=createMap(100); //PUEDE SER UNA LISTA DE PRODUCTOS 
+    HashMap *mapaCarritos=createMap(100);
 
    int eleccion;
 
@@ -38,63 +38,102 @@ void initMenu(){
 
            case 1:
         
-           //Función que importa las canciones del archivo CSV
+           //Función que importa los Porductos del archivo CSV
+           importarProductos(mapaMarcas,mapaProductos,mapaTipos);
         
            break;
 
            case 2:
         
-           //Función que exporta las canciones
+           //Función que exporta los productos en un archivo csv
         
            break;
 
            case 3:
        
-           //Función que agrega las canciones
+           //Función que agrega el producto
+           menuAgregarPorducto(mapaMarcas,mapaProductos,mapaTipos);
         
            break;
 
            case 4:
         
-           //Función que busca las canciones por nombre
-        
+           //Función que busca el producto por tipo
+           buscarProductoTipo(mapaTipos);    
+
            break;
 
            case 5:
         
-           //Función que busca las canciones por artista
+           //Función que busca el producto por marca
+           buscarProductoMarca(mapaMarcas);
         
            break;
 
            case 6:
         
-           //Función que busca las canciones por genero
+           //Función que busca el producto por nombre
+           buscarProductos(mapaProductos);
         
            break;
 
            case 7:
         
-           //Función que elimina una cancion
+           //Función que muestra todos los productos
         
            break;
 
            case 8:
         
-           //Función que muestra los nombre de todas las playlists
+           //Función que agrega al carrito
         
            break;
 
            case 9:
         
-           //Función que muestra las canciones de una playlist
+           //Función que elimina del carrito
         
            break;
 
            case 10:
         
-           //Función que muestra todas las canciones
+           //Función que concreta compra
         
+           break;
+
+           case 11:
+
+           //funcion que muestra los carritos
+
            break;
         }
    }
+}
+
+void menuAgregarPorducto(HashMap* mapaMarcas,HashMap* mapaProductos,HashMap* mapaTipos){
+
+    char nombre[100];
+    char marca[100];
+    char tipo[100];
+    char stock[100];
+    char precio[100];
+
+    printf("Ingrese el nombre del producto\n");
+    fgets(nombre,100,stdin);
+
+    printf("Ingrese la marca del producto\n");
+    fgets(marca,100,stdin);
+
+    printf("Ingrese el tipo de producto\n");
+    fgets(tipo,100,stdin);
+
+    printf("Ingrese el stock del producto\n");
+    fgets(stock,100,stdin);
+
+    printf("Ingrese el precio del producto\n");
+    fgets(precio,100,stdin);
+
+    agregarProducto(mapaMarcas, mapaProductos, mapaTipos, nombre, marca, tipo, stock, precio);
+
+
 }

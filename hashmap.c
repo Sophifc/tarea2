@@ -3,7 +3,7 @@
 #include <string.h>
 #include <math.h>
 #include <ctype.h>
-#include "headers/hashmap.h"
+#include "hashmap.h"
 
 typedef struct Pair Pair;
 typedef struct HashMap HashMap;
