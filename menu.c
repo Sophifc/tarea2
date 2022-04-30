@@ -10,8 +10,7 @@ void initMenu(){
     HashMap *mapaMarcas=createMap(100);
     HashMap *mapaTipos=createMap(100);
     HashMap *mapaProductos=createMap(100); 
-    //HashMap *mapaCarritos=createMap(100);
-    List* listaCarritos=createList();
+    List *listaCarritos=createList();
 
    int eleccion;
 

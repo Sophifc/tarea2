@@ -415,12 +415,6 @@ void agregarCarrito(List* listaCarritos, HashMap* mapaProductos){
         pushBack(listaCarritos,auxPair->value);
     }
 
-    
-
-
-    
-
-
 }
 
 
