@@ -16,7 +16,7 @@ struct Producto{
 
 
 struct  Carrito{
-    nombre[100];
+    char nombre[100];
     List* productos;
 };
 
