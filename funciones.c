@@ -352,6 +352,7 @@ void crearCarrito(char* auxCarrito,List* listaCarritos){
 
     Carrito* carrito=(Carrito*)malloc(sizeof(Carrito));
     strcpy(carrito->nombre,auxCarrito);
+    carrito->cantidad=0;
     carrito->productos=createList();
     pushBack(listaCarritos,carrito);
 
@@ -377,12 +378,12 @@ void agregarCarrito(List* listaCarritos, HashMap* mapaProductos){
         //agregar el producto al carrito
         //buscar el producto
         char producto[100];
-        int cantidad;
+        //int cantidad;
         printf("INGRESE EL NOMBRE DEL PRODUCTO A AGREGAR\n");
         fgets(producto,100, stdin);
         strtok(producto, "\n");
-        printf("Ingrese la cantidad que desea agregar\n");
-        scanf("%d", &cantidad);
+        //printf("Ingrese la cantidad que desea agregar\n");
+        //scanf("%d", &cantidad);
 
         Pair* auxPair=searchMap(mapaProductos, producto);
     
@@ -413,13 +414,13 @@ void agregarCarrito(List* listaCarritos, HashMap* mapaProductos){
 
                 //buscar el producto
                 char producto[100];
-                int cantidad;
+               // int cantidad;
                 printf("INGRESE EL NOMBRE DEL PRODUCTO A AGREGAR\n");
                 fgets(producto,100, stdin);
                 strtok(producto, "\n");
 
-                printf("Ingrese la cantidad que desea agregar\n");
-                scanf("%d", &cantidad);
+                //printf("Ingrese la cantidad que desea agregar\n");
+                //scanf("%d", &cantidad);
 
                 Pair* auxPair=searchMap(mapaProductos, producto);
 
