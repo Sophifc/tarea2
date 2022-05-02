@@ -89,7 +89,7 @@ void initMenu(){
            case 8:
         
            //Función que agrega al carrito
-           //agregarCarrito(listaCarritos,mapaProductos);
+           agregarCarrito(listaCarritos,mapaProductos);
         
            break;
 
@@ -108,6 +108,7 @@ void initMenu(){
            case 11:
 
            //funcion que muestra los carritos
+           mostrarCarritos(listaCarritos);
 
            break;
         }

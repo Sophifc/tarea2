@@ -14,4 +14,6 @@ void buscarProductoMarca(HashMap* mapaMarcas);
 void buscarProductos(HashMap* mapaProductos);
 void mostrarProductos(HashMap* mapaProductos);
 void crearCarrito(char* auxCarrito,List* listaCarritos);
+void agregarCarrito(List* listaCarritos, HashMap* mapaProductos);
+void mostrarCarritos(List* listaCarritos);
 void exportarProductos(HashMap* mapaProductos);
