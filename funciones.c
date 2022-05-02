@@ -101,16 +101,26 @@ void importarProductos(HashMap* mapaMarcas,HashMap* mapaProductos,HashMap* mapaT
 //FUNCION QUE AGREGA UN PRODUCTO AL MAPA DE MARCAS
 void agregarMapaMarcas(HashMap* mapaMarcas,Producto* auxProducto){
 
-    printf("INGRESO A AGREGAR MARCAS\n");
 
-    //se crea la lista de la marca
-    List* listaMarca=createList();
-    //agregar producto a la lista
-    pushBack(listaMarca,auxProducto);
-    printf("AGREGADO FINAL LISTA MARCAS\n");
-    //insertar lista al mapa de marcas
-    printf("INSERTANDO\n");
-    insertMap(mapaMarcas,auxProducto->marca,listaMarca);
+    Pair* aux=searchMap(mapaMarcas,auxProducto->marca);
+
+    if(aux!=NULL){
+        //la lista para ese tipo ya existe
+        List* auxLista=aux->value;
+        //agregar producto a la lista
+        pushBack(auxLista,auxProducto);
+        //insertar lista al mapa de tipos
+        insertMap(mapaMarcas,auxProducto->marca,auxLista);
+
+    }
+    else{
+        //se crea la lista de la marca
+        List* listaMarca=createList();
+       //agregar producto a la lista
+       pushBack(listaMarca,auxProducto);
+       //insertar lista al mapa de marcas
+       insertMap(mapaMarcas,auxProducto->marca,listaMarca);
+    }
 
 }
 
@@ -118,16 +128,25 @@ void agregarMapaMarcas(HashMap* mapaMarcas,Producto* auxProducto){
 //FUNCION QUE AGREGA UN PRODUCTO AL MAPA DE TIPOS
 void agregarMapaTipos(HashMap* mapaTipos,Producto* auxProducto){
 
-    printf("INGRESO A AGREGAR TIPOS\n");
-    //se crea la lista del tipo
-    List* listaTipo=createList();
-    //agregar producto a la lista
-    pushBack(listaTipo,auxProducto);
-    printf("AGREGADO FINAL LISTA TIPOS\n");
-    //insertar lista al mapa de tipos
-    printf("INSERTANDO\n");
-    insertMap(mapaTipos,auxProducto->tipo,listaTipo);
+    Pair* aux=searchMap(mapaTipos,auxProducto->tipo);
 
+    if(aux!=NULL){
+        //la lista para ese tipo ya existe
+        List* auxLista=aux->value;
+        //agregar producto a la lista
+        pushBack(auxLista,auxProducto);
+        //insertar lista al mapa de tipos
+        insertMap(mapaTipos,auxProducto->tipo,auxLista);
+
+    }
+    else{
+        //se crea la lista del tipo
+        List* listaTipo=createList();
+        //agregar producto a la lista
+        pushBack(listaTipo,auxProducto);
+       //insertar lista al mapa de tipos
+       insertMap(mapaTipos,auxProducto->tipo,listaTipo);
+    }
 }
 
 //FUNCION QUE AGREGA UN PRODUCTO
@@ -146,14 +165,9 @@ void agregarProducto(HashMap* mapaMarcas,HashMap* mapaProductos,HashMap* mapaTip
         auxProducto->precio=atoi(precio);
 
         //insertar el producto en el mapa de productos
-        //printf("INSERTANDO EN MAPA PRODUCTOS\n");
         insertMap(mapaProductos,nombre,auxProducto);
-        
         //agregar el producto al mapa de marcas y mapa de tipos
-        //printf("AGREGAR A MAPA MARCAS\n");
         agregarMapaMarcas(mapaMarcas,auxProducto);
-
-        //printf("AGREGAR A MAPA TIPOS\n");
         agregarMapaTipos(mapaTipos,auxProducto);
     }
     else{//el producto existe
@@ -236,10 +250,8 @@ void buscarProductoTipo(HashMap* mapaTipos){
             printf("Stock: %d -",auxProducto->stock);
             printf("Precio: %d\n\n",auxProducto->precio);
 
-
             auxProducto=nextList(auxList);
         }
-
     }
 
 }
@@ -272,7 +284,6 @@ void buscarProductoMarca(HashMap* mapaMarcas){
             printf("Tipo: %s -",auxProducto->tipo);
             printf("Stock: %d -",auxProducto->stock);
             printf("Precio: %d\n\n",auxProducto->precio);
-
 
             auxProducto=nextList(auxList);
         }
