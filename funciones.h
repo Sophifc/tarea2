@@ -5,7 +5,7 @@ typedef struct Producto Producto;
 typedef struct  Carrito Carrito;
 
 char* get_csv_field (char * tmp, int k);
-void importarProductos(HashMap* mapaMarcas,HashMap* mapaProductos,HashMap* mapaTipos);
+void importarProductos(HashMap* mapaMarcas,HashMap* mapaProductos,HashMap* mapaTipos, char* archivo);
 void agregarProducto(HashMap* mapaMarcas,HashMap* mapaProductos,HashMap* mapaTipos,char* nombre,char* marca,char* tipo,char* stock,char* precio);
 void agregarMapaMarcas(HashMap* mapaMarcas,Producto* auxProducto);
 void agregarMapaTipos(HashMap* mapaTipos,Producto* auxProducto);

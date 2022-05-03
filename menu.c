@@ -11,6 +11,7 @@ void initMenu(){
     HashMap *mapaTipos=createMap(100);
     HashMap *mapaProductos=createMap(100); 
     List *listaCarritos=createList();
+    char archivo[100];
 
    int eleccion;
 
@@ -40,7 +41,10 @@ void initMenu(){
            case 1:
         
            //Función que importa los Porductos del archivo CSV
-           importarProductos(mapaMarcas,mapaProductos,mapaTipos);
+           
+           printf("Ingrese el nombre del Archivo a importar\n");
+           scanf("%s", archivo);
+           importarProductos(mapaMarcas,mapaProductos,mapaTipos,archivo);
         
            break;
 
@@ -124,6 +128,7 @@ void menuAgregarPorducto(HashMap* mapaMarcas,HashMap* mapaProductos,HashMap* map
     char precio[100];
 
     printf("Ingrese el nombre del producto\n");
+    fgets(nombre,100,stdin);
     fgets(nombre,100,stdin);
 
     printf("Ingrese la marca del producto\n");

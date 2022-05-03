@@ -65,11 +65,11 @@ char* get_csv_field (char * tmp, int k){
 }
 
 //FUNCION QUE IMPORTA LOS PRODUCTOS DE UN ARCHIVO CSV
-void importarProductos(HashMap* mapaMarcas,HashMap* mapaProductos,HashMap* mapaTipos){
+void importarProductos(HashMap* mapaMarcas,HashMap* mapaProductos,HashMap* mapaTipos, char* archivo){
 
-    char archivo[100];
+   /* char archivo[100];
     printf("Ingrese el nombre del Archivo a importar\n");
-    scanf("%s", archivo);
+    scanf("%s", archivo);*/
 
     FILE *file = fopen (archivo, "r");
     if (archivo) {
