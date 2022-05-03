@@ -17,6 +17,7 @@
 
 
 (2) las opciones que funcionan correctamente y las que no lo hacen indicando posibles causas:
+
 [1] Funciona correctamente.
 
 [2] Funciona correctamente
